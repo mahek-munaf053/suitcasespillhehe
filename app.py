@@ -1,4 +1,4 @@
-mport streamlit as st
+import streamlit as st
 from ai_engine import get_stylist_response
 
 # 1. Page Configuration
