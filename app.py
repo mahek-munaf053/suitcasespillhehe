@@ -50,11 +50,12 @@ st.markdown("""
         font-size: 17px !important;
     }
     
-    /* 
-       THE ULTIMATE INLINE BOX OVERRIDE:
-       Targets the text input directly to strip out any background containers 
-       or border shadows completely, leaving ONLY your pretty pink pill!
-    */
+    /* Targets the text input parent container to handle positioning */
+    div.stTextInput {
+        position: relative !important;
+    }
+    
+    /* THE ULTIMATE INLINE BOX OVERRIDE */
     div.stTextInput > div > div > input {
         background-color: #FFC0CB !important;
         color: #FFFFFF !important;
@@ -78,6 +79,14 @@ st.markdown("""
 
     div.stTextInput label {
         display: none !important;
+    }
+
+    /* Styles the container holding our native sticker placement */
+    .sticker-wrapper {
+        position: absolute;
+        top: -65px; /* Pulls it right over the top of the chat input */
+        right: 20px;
+        z-index: 999;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -124,7 +133,6 @@ for message in st.session_state.chat_history:
         st.write(message["content"])
 
 # 5. NO-BUTTON INLINE ENTER TRIGGERS: Clean, standalone text input field!
-# This function automatically submits data and runs whenever you press Enter!
 def handle_chat_input():
     user_reply = st.session_state.user_typed_message
     if user_reply:
@@ -171,12 +179,25 @@ def handle_chat_input():
                 ai_reply = get_stylist_response(st.session_state.chat_history)
                 st.session_state.chat_history.append({"role": "assistant", "content": ai_reply})
 
+# Create a layout container anchor to lock the sticker to the input component
+st.markdown('<div style="position: relative;">', unsafe_allow_html=True)
+
+# Injects the cute transparent animated bunny sticker right above the pink box
+st.markdown("""
+    <div class="sticker-wrapper">
+        <img src="https://giphy.com" width="70">
+    </div>
+""", unsafe_allow_html=True)
+
+# Main input text bar element
 user_reply = st.text_input(
     label="spill_input",
     placeholder="Spill your trip details here...",
     key="user_typed_message",
     on_change=handle_chat_input
 )
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 # Block autocomplete dropdowns safely
 st.components.v1.html("""
