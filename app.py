@@ -1,4 +1,4 @@
-import streamlit as st
+mport streamlit as st
 from ai_engine import get_stylist_response
 
 # 1. Page Configuration
@@ -183,6 +183,7 @@ def handle_chat_input():
 st.markdown('<div style="position: relative;">', unsafe_allow_html=True)
 
 # Injects the cute transparent animated bunny sticker right above the pink box
+st.markdown('<div style="position: relative;">', unsafe_allow_html=True)
 st.markdown("""
     <div class="sticker-wrapper">
         <img src="https://imgur.com" width="70">
