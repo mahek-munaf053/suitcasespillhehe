@@ -185,7 +185,7 @@ st.markdown('<div style="position: relative;">', unsafe_allow_html=True)
 # Injects the cute transparent animated bunny sticker right above the pink box
 st.markdown("""
     <div class="sticker-wrapper">
-        <img src="https://giphy.com" width="70">
+        <img src="https://imgur.com" width="70">
     </div>
 """, unsafe_allow_html=True)
 
